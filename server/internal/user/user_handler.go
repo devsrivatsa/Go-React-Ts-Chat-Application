@@ -1,0 +1,31 @@
+package user
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+type Handler struct {
+	service Service
+}
+
+func NewHandler(s Service) *Handler {
+	return &Handler{service: s}
+}
+
+func (h *Handler) CreateUser(c *gin.Context) {
+	var u CreateUserRequest
+	if err := c.ShouldBindJSON(&u); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	res, err := h.service.CreateUser(c.Request.Context(), &u)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, res)
+}
