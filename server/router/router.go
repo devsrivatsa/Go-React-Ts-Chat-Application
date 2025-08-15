@@ -16,7 +16,7 @@ func InitRouter(userHandler *user.Handler, wsHandler *ws.HubHandler) {
 	r.GET("/logout", userHandler.Logout)
 
 	r.POST("/ws/createRoom", wsHandler.CreateRoom)
-	r.GET("/ws/joinRoom/:roomId", wsHandler.JoinRoom)
+	r.GET("/ws/joinRoom/:roomId", wsHandler.JoinRoom) //ws://localhost:8080/ws/joinRoom/1?clientId=1&username=first
 	r.GET("/ws/getRooms", wsHandler.GetRooms)
 	r.GET("/ws/getClients/:roomId", wsHandler.GetClientsInRoom)
 }
