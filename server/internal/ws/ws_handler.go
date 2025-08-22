@@ -68,6 +68,17 @@ func (h *HubHandler) JoinRoom(c *gin.Context) {
 	userId := c.Query("clientId")
 	username := c.Query("username")
 
+	if uid, ok := c.Get("userId"); ok {
+		if s, ok := uid.(string); ok && s != "" {
+			userId = s
+		}
+	}
+	if un, ok := c.Get("username"); ok {
+		if s, ok := un.(string); ok && s != "" {
+			username = s
+		}
+	}
+
 	cl := &Client{
 		Conn:     conn,
 		Message:  make(chan *Message, 10),

@@ -1,0 +1,1 @@
+{"root":["./src/app.d.ts","./src/main.tsx","./src/components/Guard.tsx","./src/components/RoomListItem.tsx","./src/components/ThemeToggle.tsx","./src/layouts/RootLayout.tsx","./src/pages/AppPage.tsx","./src/pages/HomePage.tsx","./src/pages/LoginPage.tsx","./src/state/AuthContext.tsx","./src/state/WebSocketContext.tsx","./vite.config.ts"],"version":"5.9.2"}

@@ -32,12 +32,17 @@ func (h *Hub) Run() {
 	for {
 		select {
 		case cl := <-h.Register:
-			if _, ok := h.Rooms[cl.RoomID]; !ok {
-				r := h.Rooms[cl.RoomID]
-				if _, ok := r.Clients[cl.ID]; !ok {
-					r.Clients[cl.ID] = cl
+			r, ok := h.Rooms[cl.RoomID]
+			if !ok {
+				r = &Room{
+					ID:          cl.RoomID,
+					Name:        "",
+					Description: "",
+					Clients:     make(map[string]*Client),
 				}
+				h.Rooms[cl.RoomID] = r
 			}
+			r.Clients[cl.ID] = cl
 		case cl := <-h.Unregister:
 			if _, ok := h.Rooms[cl.RoomID]; ok {
 				if _, ok := h.Rooms[cl.RoomID].Clients[cl.ID]; ok {
